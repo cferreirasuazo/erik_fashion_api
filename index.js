@@ -11,6 +11,11 @@ mongoose.connect(url)
  .then(() => console.log("Connected to DB"))
  .catch(err => console.log(err))
 const routes = require("./routes/index")
+var seed = require("./tools/seed")
+
+seed()
+
+
 
 routes.forEach((route, index) => {
   fastify.route(route)
@@ -31,8 +36,6 @@ const start = async () => {
     process.exit(1)
   }
 }
-
-
 
 start()
 

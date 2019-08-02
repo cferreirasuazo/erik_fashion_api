@@ -64,5 +64,5 @@ function makeSeed(){
 
 
 
-module.exports = makeSeed
+module.exports = makeClients
 
