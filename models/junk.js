@@ -9,7 +9,9 @@ const clienteSchema = new mongoose.Schema({
     correo: String,
     usuario: String,
     password: String,
-    fechaRegistro: Date  
+    fechaRegistro: Date,
+    carrito: []
+      
 })
 
 

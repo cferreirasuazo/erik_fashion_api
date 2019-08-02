@@ -8,6 +8,16 @@ const Categoria = require("../models/Categoria");
 const arrCategorias = ["Zapatos","Mochilas","Relojes","Objectos Sexuales"] 
 const arrMarca = ["Addidas","Nike","Champion","Jordan","Fila"]
 
+function makeArticulo(){
+
+    for(var i = 0 ; i <= 100 ; i++){
+        
+    }
+
+}
+
+
+
 
 
 
