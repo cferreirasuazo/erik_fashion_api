@@ -8,10 +8,49 @@ const Categoria = require("../models/Categoria");
 const arrCategorias = ["Zapatos","Mochilas","Relojes","Objectos Sexuales"] 
 const arrMarca = ["Addidas","Nike","Champion","Jordan","Fila"]
 
+
+var marcas = []
+var categorias = []
+
+// async function getMarcasCategorias(){
+//   try{
+//        marcas = await Marca.find()
+//        categorias = await Categoria.find() 
+//        console.log(marcas)      
+//   }catch(err){
+//       console.log(err)
+//   }
+// }
+
+ async function makeRandomArticles(){
+    try{
+        var marcas = await Marca.find()
+        console.log(marcas)
+        console.log("-----------------------------------------------")
+        var categorias = await Categoria.find()
+        console.log(categorias) 
+    }catch(err){
+        console.log(err)
+    }
+
+
+    console.log("categorias length" + marcas.length )
+  
+
+}
+
+
+
+
+
+
+
 function makeArticulo(){
 
     for(var i = 0 ; i <= 100 ; i++){
-        
+        var articulo = new Articulo({
+
+        })
     }
 
 }
@@ -44,7 +83,7 @@ function makeClients(){
 
 
 function makeSeed(){
-    makeClients()
+    //makeClients()
 
     arrCategorias.map( (x) => {
         var newCategoria = new Categoria({"nombre":x})
@@ -74,5 +113,5 @@ function makeSeed(){
 
 
 
-module.exports = makeClients
 
+module.exports = makeRandomArticles

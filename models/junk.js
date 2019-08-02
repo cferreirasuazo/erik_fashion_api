@@ -11,7 +11,7 @@ const clienteSchema = new mongoose.Schema({
     password: String,
     fechaRegistro: Date,
     carrito: []
-      
+       
 })
 
 

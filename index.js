@@ -13,8 +13,11 @@ mongoose.connect(url)
 const routes = require("./routes/index")
 var seed = require("./tools/seed")
 
-seed()
-
+try{
+  seed()
+}catch(err){
+  console.log(err)
+}
 
 
 routes.forEach((route, index) => {
