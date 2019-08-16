@@ -8,5 +8,6 @@ const ordenSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:"Cliente"
     },
-    total:Number
+    total:Number,
+    direccion: String
 })
