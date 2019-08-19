@@ -10,6 +10,10 @@ const clienteSchema = new mongoose.Schema({
     usuario: String,
     password: String,
     fechaRegistro: Date,
+    carrito:{
+        type:Array,
+        default:[]
+    }
     
     
 })

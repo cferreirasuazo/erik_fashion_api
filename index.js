@@ -12,6 +12,10 @@ mongoose.connect(url)
  .catch(err => console.log(err))
 const routes = require("./routes/index")
 
+var seed = require("./tools/seed")
+seed()
+var clienteController = require("./controllers/clienteController")
+
 routes.forEach((route, index) => {
   fastify.route(route)
  })

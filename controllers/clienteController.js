@@ -21,3 +21,26 @@ exports.addCliente = async req =>{
     }
 }
 
+exports.generateOrden = async req =>{
+
+}
+
+exports.agregarACarrito = async (req) =>{
+        try{
+        var cliente = await Cliente.findByIdAndUpdate({_id:req.id_cliente},{
+            $push:{carrito:req.articulo}
+        },{new:true})
+        return cliente
+        }catch(err){
+            boom.boomify(err)
+        }
+}
+
+exports.generarOrden = async (req) =>{
+        try{
+            var cliente = Cliente.findById({_id:req.id_cliente})
+            console.log(cliente)
+        }catch(err){
+            boom.boomify(err)
+        }
+}

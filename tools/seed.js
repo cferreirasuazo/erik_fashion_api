@@ -13,7 +13,7 @@ const arrMarca = ["Addidas","Nike","Champion","Jordan","Fila"]
 
 
 function makeClients(){
-    for (var i = 1 ; i<= 10;i++){
+    for (var i = 1 ; i<= 1;i++){
         const cliente = new Cliente({
             nombre: faker.name.firstName(),
             apellido:faker.name.lastName(),
