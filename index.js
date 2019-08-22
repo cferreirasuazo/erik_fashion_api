@@ -21,10 +21,6 @@ var req = {
   direccion: "lorem ipsum"
 }
 
-
-controller.generarOrden(req)
-
-
 routes.forEach((route, index) => {
   fastify.route(route)
  })
