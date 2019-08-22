@@ -1,5 +1,7 @@
 const boom = require('boom')
 const Cliente = require("../models/Cliente")
+const Order = require("../models/Orden")
+
 
 
 exports.getClientes = async req =>{
@@ -21,10 +23,6 @@ exports.addCliente = async req =>{
     }
 }
 
-exports.generateOrden = async req =>{
-
-}
-
 exports.agregarACarrito = async (req) =>{
         try{
         var cliente = await Cliente.findByIdAndUpdate({_id:req.id_cliente},{
@@ -36,11 +34,3 @@ exports.agregarACarrito = async (req) =>{
         }
 }
 
-exports.generarOrden = async (req) =>{
-        try{
-            var cliente = Cliente.findById({_id:req.id_cliente})
-            console.log(cliente)
-        }catch(err){
-            boom.boomify(err)
-        }
-}

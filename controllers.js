@@ -7,7 +7,8 @@ exports.getArticulos = async(req,reply) => {
 
     try{
 
-      const articulos = await Articulo.find({}).select("nombre descripcion precio -_id")
+      const articulos = await Articulo.find({})
+      .select("nombre descripcion precio -_id")
       .populate('marca','nombre')
       .populate("categoria","nombre")
 

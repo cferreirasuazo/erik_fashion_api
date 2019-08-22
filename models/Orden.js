@@ -9,5 +9,12 @@ const ordenSchema = new mongoose.Schema({
         ref:"Cliente"
     },
     total:Number,
-    direccion: String
+    direccion: String,
+    articulos: {
+        type:Array,
+        default:[]
+    }
 })
+
+
+module.exports = mongoose.model("Orden",ordenSchema)

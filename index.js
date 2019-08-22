@@ -13,8 +13,17 @@ mongoose.connect(url)
 const routes = require("./routes/index")
 
 var seed = require("./tools/seed")
-seed()
-var clienteController = require("./controllers/clienteController")
+
+var controller = require("./controllers/orderController");
+
+var req = {
+  id_cliente: "5d5b1fcedf7edc0d5a2fd2c8",
+  direccion: "lorem ipsum"
+}
+
+
+controller.generarOrden(req)
+
 
 routes.forEach((route, index) => {
   fastify.route(route)
