@@ -15,7 +15,7 @@ exports.getClientes = async req =>{
 
 exports.addCliente = async req =>{
     try{
-        const cliente = new Cliente(req)
+        const cliente = new Cliente(req.body)
         const newCliente = await cliente.save()
         return newCliente
     }catch(err){

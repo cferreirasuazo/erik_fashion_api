@@ -3,6 +3,15 @@ const Order = require("../models/Orden")
 
 const boom = require("boom")
 
+const ordenEstados = Object.freeze({
+    CREADA:0,
+    LISTA:1,
+    ENVIADA:2,
+    ENTREGADA:3,
+    DEVOLVIDA:4,
+    CANCELADA:5
+})
+
 
 exports.generarOrden = async (req) =>{
     try{
@@ -17,7 +26,7 @@ exports.generarOrden = async (req) =>{
         var newOrden = new Order({
             fechaCreada:new Date(),
             fechaEntrega:new Date(),
-            estadoOrden:true,
+            estadoOrden:ordenEstados.CREADA,
             clienteId:req.id_cliente,
             total:total,
             direccion: req.direccion,
@@ -34,3 +43,15 @@ exports.generarOrden = async (req) =>{
         boom.boomify(err)
     }
 }   
+
+exports.cancelarOrden = async (req) =>{
+    try{
+        var ordenActualizar = await Order.findByIdAndUpdate(req,
+            {"ordenEstado": ordenEstados.CANCELADA},
+            {new:true})
+        console.log(ordenActualizar)
+    }catch(err){    
+        boom.boomify(err)
+    }
+}
+

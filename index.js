@@ -20,6 +20,11 @@ var req = {
   id_cliente: "5d5b1fcedf7edc0d5a2fd2c8",
   direccion: "lorem ipsum"
 }
+//controller.generarOrden(req)
+
+//controller.cancelarOrden("5d6298b83577183a2fcd75d1")
+
+
 
 routes.forEach((route, index) => {
   fastify.route(route)
