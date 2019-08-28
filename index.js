@@ -21,7 +21,6 @@ var req = {
   direccion: "lorem ipsum"
 }
 //controller.generarOrden(req)
-
 //controller.cancelarOrden("5d6298b83577183a2fcd75d1")
 
 
