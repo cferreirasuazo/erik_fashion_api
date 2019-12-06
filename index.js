@@ -12,16 +12,20 @@ const url = "mongodb://admin:lolo2020@ds251158.mlab.com:51158/erikfashion"
 mongoose.connect(url,{ useNewUrlParser: true,useUnifiedTopology: true })
  .then(() => console.log("Connected to DB"))
  .catch(err => console.log(err))
+mongoose.set('useFindAndModify', false);
 const routes = require("./routes/index")
 
 var seed = require("./tools/seed")
 
-var controller = require("./controllers/orderController");
+var controller = require("./controllers/clienteController");
+
 
 var req = {
-  id_cliente: "5d5b1fcedf7edc0d5a2fd2c8",
-  direccion: "lorem ipsum"
+  id_cliente: "5de2ec86c8aa4442114d18fb",
 }
+
+
+controller.actualizarCarrito(req)
 
 
 fastify.register(require('fastify-cors'), {
@@ -52,12 +56,3 @@ const start = async () => {
 }
 
 start()
-
-// seed.map(x =>{
-//   var articulo = new Articulo(x)
-//   try{
-//       articulo.save()
-//   }catch(err){    
-//     console.log(err)
-//   }
-// })
