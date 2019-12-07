@@ -14,5 +14,4 @@ const articuloSchema = new mongoose.Schema({
     }
 })
 
-
 module.exports = mongoose.model('Articulo', articuloSchema)

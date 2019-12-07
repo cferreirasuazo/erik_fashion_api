@@ -3,7 +3,7 @@ const Articulo = require("../models/Articulo");
 const Marca = require("../models/Marca");
 const Cliente = require("../models/Cliente");
 const Categoria = require("../models/Categoria");
-
+const ClienteArticulo = require("../models/ClienteArticulo");
 
 const arrCategorias = [faker.commerce.department(),faker.commerce.department(),faker.commerce.department(),faker.commerce.department(),faker.commerce.department()] 
 
@@ -34,10 +34,88 @@ var marcas_id = [
 ]
 
 
+var articulos_id = [
+    "5de2f8c3556ff1535aa0747a", 	
+    "5de2f8c3556ff1535aa0747b", 	
+    "5de2f8c3556ff1535aa0747c", 	
+    "5de2f8c3556ff1535aa0747d", 	
+    "5de2f8c3556ff1535aa0747e", 	
+    "5de2f8c3556ff1535aa0747f", 	
+    "5de2f8c3556ff1535aa07482", 	
+    "5de2f8c3556ff1535aa07481", 	
+    "5de2f8c3556ff1535aa07483", 	
+    "5de2f8c3556ff1535aa07480", 	
+    "5de2f8c3556ff1535aa07484", 	
+    "5de2f8c3556ff1535aa07485", 	
+    "5de2f8c3556ff1535aa07487", 	
+    "5de2f8c3556ff1535aa07488", 	
+    "5de2f8c3556ff1535aa07489", 	
+    "5de2f8c3556ff1535aa0748a", 	
+    "5de2f8c3556ff1535aa07486", 	
+    "5de2f8c3556ff1535aa0748c", 	
+    "5de2f8c3556ff1535aa0748d", 	
+    "5de2f8c3556ff1535aa07492", 	
+    "5de2f8c3556ff1535aa07491", 	
+    "5de2f8c3556ff1535aa0748e", 	
+    "5de2f8c3556ff1535aa0748b", 	
+    "5de2f8c3556ff1535aa0748f", 	
+    "5de2f8c3556ff1535aa07490"
+]
 
+var clientes_id = [
+   
+	
+        "5de2ec86c8aa4442114d1946", 	
+        "5de2ec86c8aa4442114d194b", 	
+        "5de2ec86c8aa4442114d1950", 	
+        "5de2ec86c8aa4442114d1955", 	
+        "5de2ec86c8aa4442114d195a", 	
+        "5de2ec86c8aa4442114d1952", 	
+        "5de2ec86c8aa4442114d1957", 	
+        "5de2ec86c8aa4442114d195c", 	
+        "5de2ec86c8aa4442114d194e", 	
+        "5de2ec86c8aa4442114d1953", 	
+        "5de2ec86c8aa4442114d1958", 	
+        "5de2ec86c8aa4442114d195d", 	
+        "5de2ec86c8aa4442114d193d", 	
+        "5de2ec86c8aa4442114d1942", 	
+        "5de2ec86c8aa4442114d1947", 	
+        "5de2ec86c8aa4442114d194c", 	
+        "5de2ec86c8aa4442114d1951", 	
+        "5de2ec86c8aa4442114d1956", 	
+        "5de2ec86c8aa4442114d195b", 	
+        "5de2f155083f6545ffae93eb"
+
+
+]
+
+
+
+async function makeCarrito(){
+    for(var i = 0; i < 100; i++){
+        var amount = Math.floor((Math.random() * 15) + 1);
+        var randomCliente = clientes_id[Math.floor((Math.random() * clientes_id.length) + 1)];
+        var randomArticulo = articulos_id[Math.floor((Math.random() * articulos_id.length) + 1)];
+
+        const clienteArticuloNew = new ClienteArticulo({
+            clienteID: randomCliente,
+            articuloID: randomArticulo,
+            cantidad: amount
+        })
+
+        try{
+            var success = await clienteArticuloNew.save()
+            console.log(success)
+        }catch(err){
+            console.log(err)
+        }
+
+    }
+}
 
 
 function makeProducts(){
+    console.log("makeProducts")
     for (var i = 0; i< 25;i++){
         var randomMarca = marcas_id[Math.floor((Math.random() * marcas_id.length) + 1)];
         var randomCategoria = categorias_id[Math.floor((Math.random() * categorias_id.length) + 1)]
@@ -112,5 +190,5 @@ function makeSeed(){
 
 
 
-module.exports = makeProducts
+module.exports = makeCarrito
 
