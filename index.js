@@ -25,11 +25,6 @@ fastify.register(require('fastify-cors'), {
   methods: ['GET', 'PUT', 'PATCH', 'POST', 'DELETE']
 })
 
-
-var cliente = require("./models/Cliente");
-var clienteArticulo = require("./models/ClienteArticulo");
-var returnClientes = require("./controllers/clienteController")
-
 routes.forEach((route, index) => {
   fastify.route(route)
  })

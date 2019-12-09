@@ -3,14 +3,15 @@ const Cliente = require("../models/Cliente")
 const Order = require("../models/Orden")
 const ClienteArticulo = require("../models/ClienteArticulo")
 
-
-
-exports.clienteArticulos = async function(id){
+exports.clienteArticulos = async req =>{
     try{
+
+        var id = req.params.id
         var req = await Promise.all([Cliente.find({_id:id}),ClienteArticulo.find({clienteID:id})])
         return req
+        
     }catch(err){
-        console.log(err)
+        return error
     }
 }
 

@@ -1,6 +1,6 @@
 const controllers = require("../controllers")
-const clienteController = require("../controllers/clienteController")
 const articleControllers = require("../controllers/articleController")
+const cliente = require("../controllers/clienteController")
 const routes = [
     {
         method: "GET",
@@ -16,6 +16,11 @@ const routes = [
         method:"GET",
         url:"/api/articles",
         handler:articleControllers.getArticles
+    },
+    {
+        method:"GET",
+        url:"/api/cliente/:id",
+        handler:cliente.clienteArticulos
     }
 
 
