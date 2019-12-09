@@ -19,12 +19,16 @@ mongoose.connect(url,{ useNewUrlParser: true,useUnifiedTopology: true })
 mongoose.set('useFindAndModify', false);
 const routes = require("./routes/index")
 var seed = require("./tools/seed")
-
 fastify.register(require('fastify-cors'), {
   origin:"*",
   allowedHeaders: ['Origin', 'X-Requested-With', 'Accept', 'Content-Type', 'Authorization'],
   methods: ['GET', 'PUT', 'PATCH', 'POST', 'DELETE']
 })
+
+
+var cliente = require("./models/Cliente");
+var clienteArticulo = require("./models/ClienteArticulo");
+var returnClientes = require("./controllers/clienteController")
 
 routes.forEach((route, index) => {
   fastify.route(route)
