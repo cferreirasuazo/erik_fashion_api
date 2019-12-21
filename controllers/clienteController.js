@@ -5,15 +5,28 @@ const ClienteArticulo = require("../models/ClienteArticulo")
 
 exports.clienteArticulos = async req =>{
     try{
-
+        
         var id = req.params.id
-        var req = await Promise.all([Cliente.find({_id:id}),ClienteArticulo.find({clienteID:id})])
-        return req
+        // var req = await Promise.all([Cliente.find({_id:id}),ClienteArticulo.find({clienteID:id})])
+        const articulos = await ClienteArticulo.find({clienteID:id})
+            .select("articuloID cantidad -_id")
+            .populate("articuloID","nombre descripcion precio")
+        
+        const cliente = Cliente.find({_id:id})
+        var req = await Promise.all([cliente,articulos])
+        var cli = req[0];
+        var art = req[1].map((item)=>{
+            return item.articuloID
+        });
+        console.log(art)
+        return [cli,art]
         
     }catch(err){
         return error
     }
 }
+
+
 
 exports.getClientes = async req =>{
     try{
