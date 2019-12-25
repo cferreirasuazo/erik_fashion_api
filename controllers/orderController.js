@@ -16,33 +16,32 @@ const ordenEstados = Object.freeze({
 exports.generarOrden = async (req) =>{
     try{
        
-        var cliente = await Cliente.findById({_id:req.id_cliente});
-        var precios = cliente.carrito.map((articulo)=>{
-                return articulo.precio
-        });
-
-        var total = precios.reduce((acum,curr)=> acum + curr,0);
-
         var newOrden = new Order({
             fechaCreada:new Date(),
-            fechaEntrega:new Date(),
+            fechaEntrega:req.entrega,
             estadoOrden:ordenEstados.CREADA,
             clienteId:req.id_cliente,
-            total:total,
             direccion: req.direccion,
-            articulos: cliente.carrito
         })
-        try{
-            var saved = await newOrden.save()
-            console.log(saved)
-        }catch(err){
-            boom.boomify(err)
-        }
+        var saved = await newOrden.save()
+        console.log(saved)
+      
         
     }catch(err){
-        boom.boomify(err)
+        console.log(err)
     }
 }   
+
+
+exports.getOrden = async (req) => {
+    try{
+        var order = await Order.find({clienteId:req.id_cliente})
+        return order
+
+    }catch(err){
+        console.log(err)
+    }
+}
 
 exports.cancelarOrden = async (req) =>{
     try{
@@ -51,7 +50,7 @@ exports.cancelarOrden = async (req) =>{
             {new:true})
         console.log(ordenActualizar)
     }catch(err){    
-        boom.boomify(err)
+        console.log(err)
     }
 }
 

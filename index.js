@@ -25,6 +25,20 @@ fastify.register(require('fastify-cors'), {
   methods: ['GET', 'PUT', 'PATCH', 'POST', 'DELETE']
 })
 
+
+const query = require("./controllers/orderController");
+
+var req = {
+      id_cliente:"5de2ec86c8aa4442114d1957",
+      direccion:"Lorem ipsum sed vitae placerat aliquet consequat ut mattis, nunc mattis",
+      entrega:new Date("25/3/2019")
+}
+
+query.getOrden(req).then((suc,err)=> {
+    console.log(suc)
+})
+
+
 routes.forEach((route, index) => {
   fastify.route(route)
  })
