@@ -1,6 +1,6 @@
 const Cliente = require("../models/Cliente")
 const Order = require("../models/Orden")
-
+const ClienteArticulo = require("../models/ClienteArticulo");
 const boom = require("boom")
 
 const ordenEstados = Object.freeze({
@@ -28,20 +28,63 @@ exports.generarOrden = async (req) =>{
       
         
     }catch(err){
-        console.log(err)
+        console.log(err.message)
     }
 }   
 
 
 exports.getOrden = async (req) => {
     try{
-        var order = await Order.find({clienteId:req.id_cliente})
+        var order = await Order.findOne({clienteId:req.id_cliente})
+        console.log("ON ORDER")
+        console.log("/****************************************/")
         return order
 
     }catch(err){
-        console.log(err)
+        return new Error (err.message)
     }
 }
+
+exports.addOrdenArticulo = async (orden) => {
+    try{
+        console.log("ON ADDORDER")
+        console.log("/****************************************/")
+        var {_id,clienteId} = orden
+        var clienteArticulos = await ClienteArticulo.find({clienteID:clienteId})
+        var articulos = clienteArticulos.map((articulo)=> {
+            var {articuloID, cantidad,} = articulo
+            return {
+                articuloID: articuloID,
+                cantidad: cantidad
+            }
+        })
+
+        return articulos
+        
+    }catch(err){
+        console.log(err.message)
+    }
+
+}
+
+
+
+
+
+
+exports.query = async(req)=>{
+    try{
+        console.log("ON QUERY")
+        console.log("/****************************************/")
+        var order = await this.getOrden(req)
+        var stuff = await this.addOrdenArticulo(order)
+        console.log(stuff)
+    }catch(err){    
+        console.log(err)
+    }
+    
+}
+
 
 exports.cancelarOrden = async (req) =>{
     try{

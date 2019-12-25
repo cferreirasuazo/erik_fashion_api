@@ -34,10 +34,7 @@ var req = {
       entrega:new Date("25/3/2019")
 }
 
-query.getOrden(req).then((suc,err)=> {
-    console.log(suc)
-})
-
+query.query(req)
 
 routes.forEach((route, index) => {
   fastify.route(route)
