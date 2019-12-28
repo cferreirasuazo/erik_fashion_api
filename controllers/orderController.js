@@ -2,6 +2,7 @@ const Cliente = require("../models/Cliente")
 const Order = require("../models/Orden")
 const ClienteArticulo = require("../models/ClienteArticulo");
 const boom = require("boom")
+const OrdenArticulo = require("../models/ordenArticulo");
 
 const ordenEstados = Object.freeze({
     CREADA:0,
@@ -13,7 +14,7 @@ const ordenEstados = Object.freeze({
 })
 
 
-exports.generarOrden = async (req) =>{
+exports.addOrden = async (req) =>{
     try{
        
         var newOrden = new Order({
@@ -28,27 +29,29 @@ exports.generarOrden = async (req) =>{
       
         
     }catch(err){
-        console.log(err.message)
+        throw new Error(err.message)
     }
 }   
 
 
 exports.getOrden = async (req) => {
     try{
+        console.log(req.id_cliente)
         var order = await Order.findOne({clienteId:req.id_cliente})
-        console.log("ON ORDER")
-        console.log("/****************************************/")
+       // console.log("ON ORDER")
+       // console.log("/****************************************/")
         return order
 
     }catch(err){
-        return new Error (err.message)
+        console.log("ERROR ON GET ORDEN")
+        throw new Error (err.message)
     }
 }
 
 exports.addOrdenArticulo = async (orden) => {
     try{
-        console.log("ON ADDORDER")
-        console.log("/****************************************/")
+       // console.log("ON ADDORDER")
+       // console.log("/****************************************/")
         var {_id,clienteId} = orden
         var clienteArticulos = await ClienteArticulo.find({clienteID:clienteId})
         var articulos = clienteArticulos.map((articulo)=> {
@@ -59,28 +62,54 @@ exports.addOrdenArticulo = async (orden) => {
             }
         })
 
-        return articulos
+        return {
+            orden_id: _id ,
+            articulos: articulos
+        }
         
     }catch(err){
-        console.log(err.message)
+        console.warn("ERR ON addOA")
+        throw new Error(err.message)
     }
 
+}
+
+async function addOrdenArticulo(articulos){
+   try{
+         articulos.articulos.forEach(async (articulo)=>{
+                
+                try{
+                    var newOrdenArticulo = new OrdenArticulo({
+                        ordenId: articulos.orden_id,
+                        articuloId: articulo.articuloID    
+                    })
+                    let suc = await newOrdenArticulo.save()
+                    console.log(suc)
+                }catch(err){
+                    throw new Error(err.message)
+                }
+         })
+
+         return "SUCCESS"
+   }catch(err){
+       throw new Error(err.message)
+   }
 }
 
 
 
 
-
-
-exports.query = async(req)=>{
+exports.generateOrder = async(req)=>{
     try{
-        console.log("ON QUERY")
-        console.log("/****************************************/")
-        var order = await this.getOrden(req)
+        var order = await this.getOrden(req)//.catch((err)=>(console.log(err)))
         var stuff = await this.addOrdenArticulo(order)
-        console.log(stuff)
+        var stuff2 = await addOrdenArticulo(stuff) 
+        
+        return stuff2
+
     }catch(err){    
-        console.log(err)
+        console.warn("ERR QUERY")
+        throw new Error(err.message)
     }
     
 }

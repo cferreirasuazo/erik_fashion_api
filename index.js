@@ -28,13 +28,9 @@ fastify.register(require('fastify-cors'), {
 
 const query = require("./controllers/orderController");
 
-var req = {
-      id_cliente:"5de2ec86c8aa4442114d1957",
-      direccion:"Lorem ipsum sed vitae placerat aliquet consequat ut mattis, nunc mattis",
-      entrega:new Date("25/3/2019")
-}
-
-query.query(req)
+// query.query(req).then((suc)=>{
+//   console.log(suc)
+// }).catch((err)=>(console.log(err.message)))
 
 routes.forEach((route, index) => {
   fastify.route(route)
