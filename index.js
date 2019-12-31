@@ -11,8 +11,6 @@ const cors = require("cors")
 
 const url = `mongodb://${process.env.MONGOUSER}:${process.env.MONGOPASSWD}@ds251158.mlab.com:51158/erikfashion`
 
-const url2 = "mongodb://admin:lolo2020@ds251158.mlab.com:51158/erikfashion"
-
 mongoose.connect(url,{ useNewUrlParser: true,useUnifiedTopology: true })
  .then(() => console.log("Connected to DB"))
  .catch(err => console.log(err))
