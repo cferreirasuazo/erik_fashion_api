@@ -9,14 +9,23 @@ exports.clienteArticulos = async req =>{
         var id = req.params.id
         // var req = await Promise.all([Cliente.find({_id:id}),ClienteArticulo.find({clienteID:id})])
         const articulos = await ClienteArticulo.find({clienteID:id})
-            .select("articuloID cantidad -_id")
+            .select("articuloID cantidad")
             .populate("articuloID","nombre descripcion precio")
         
         const cliente = Cliente.find({_id:id})
         var req = await Promise.all([cliente,articulos])
         var cli = req[0];
         var art = req[1].map((item)=>{
-            return item.articuloID
+            var value = item.articuloID
+            return {
+                "_id": item._id,
+                "id_articulo": item.articuloID._id,
+                "descripcion":item.articuloID.descripcion,
+                "nombre":item.articuloID.nombre,
+                "precio":item.articuloID.precio,
+                "cantidad":item.cantidad
+
+            }
         });
         console.log(art)
         return [cli,art]
