@@ -16,7 +16,6 @@ exports.clienteArticulos = async req =>{
         var req = await Promise.all([cliente,articulos])
         var cli = req[0];
         var art = req[1].map((item)=>{
-            var value = item.articuloID
             return {
                 "_id": item._id,
                 "id_articulo": item.articuloID._id,
@@ -24,7 +23,6 @@ exports.clienteArticulos = async req =>{
                 "nombre":item.articuloID.nombre,
                 "precio":item.articuloID.precio,
                 "cantidad":item.cantidad
-
             }
         });
         console.log(art)

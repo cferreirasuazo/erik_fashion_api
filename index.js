@@ -26,10 +26,6 @@ fastify.register(require('fastify-cors'), {
 
 const query = require("./controllers/orderController");
 
-// query.query(req).then((suc)=>{
-//   console.log(suc)
-// }).catch((err)=>(console.log(err.message)))
-
 routes.forEach((route, index) => {
   fastify.route(route)
  })

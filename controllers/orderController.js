@@ -33,6 +33,20 @@ exports.addOrden = async (req) =>{
     }
 }   
 
+exports.deleteOrden = async (req) => {
+   // var {ordenId} = req.params;
+   var ordenId = req
+    
+    try {
+        var status = await Order.deleteOne({_id:ordenId})
+        console.log(status)
+    }catch(err){
+        console.log(err.message)
+    }
+
+
+
+}
 
 exports.getOrden = async (req) => {
     try{
@@ -50,8 +64,7 @@ exports.getOrden = async (req) => {
 
 exports.addOrdenArticulo = async (orden) => {
     try{
-       // console.log("ON ADDORDER")
-       // console.log("/****************************************/")
+
         var {_id,clienteId} = orden
         var clienteArticulos = await ClienteArticulo.find({clienteID:clienteId})
         var articulos = clienteArticulos.map((articulo)=> {
