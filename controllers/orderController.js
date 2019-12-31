@@ -48,13 +48,11 @@ exports.deleteOrden = async (req) => {
 
 }
 
-exports.getOrden = async (req) => {
+exports.getOrders = async (req) => {
     try{
-        console.log(req.id_cliente)
-        var order = await Order.findOne({clienteId:req.id_cliente})
-       // console.log("ON ORDER")
-       // console.log("/****************************************/")
-        return order
+        
+        var orders = await Order.find({clienteId:req.id_cliente})
+        return orders
 
     }catch(err){
         console.log("ERROR ON GET ORDEN")
