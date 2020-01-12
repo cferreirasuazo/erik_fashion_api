@@ -12,6 +12,7 @@ exports.register = async (req,res) => {
         nombre:req.body.nombre,
         apellido:req.body.apellido,
         usuario: req.body.usuario,
+        correo:req.body.correo,
         password: hashedPassword
     })
 
@@ -24,8 +25,10 @@ exports.register = async (req,res) => {
                 //Expires in the asigned time
                 expiresIn:86400
             })
-            
+
             res.code(200).send({ auth: true, token: token })
+
+           
 
 
         })
@@ -38,8 +41,29 @@ exports.register = async (req,res) => {
 }
 
 exports.sign = async (req,res) => {
-    var token = req.headers['x-access-token'];
+    
+    let token = req.headers['x-access-token'] || req.headers['authorization'];
     console.log(token)
-    res.code(200).send(token)
+    res.status(200).send(token)
+    // var token = req.headers['x-access-token'];
+    // if(!token) return res.status(401).send({auth:false,message:'No token provided.'})
+
+    // jwt.verify(token, config.secret,function(err,decoded){
+    //     if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+    
+    //     Cliente.findById(decoded._id,function(err,user){
+    //         if (err) return res.status(500).send("There was a problem finding the user.");
+    //         if (!user) return res.status(404).send("No user found.");
+            
+    //         res.status(200).send(user);
+    //     })
+    // })
 } 
 
+// exports.login = async(req,res){
+//         Cliente.findOne({})
+// }
+
+
+
+//https://stackoverflow.com/questions/30089604/jwt-whats-a-good-secret-key-and-how-to-store-it-in-an-node-js-express-app#30090120
