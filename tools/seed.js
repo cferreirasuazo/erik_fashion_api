@@ -63,39 +63,16 @@ var articulos_id = [
 ]
 
 var clientes_id = [
-   
-	
-        "5de2ec86c8aa4442114d1946", 	
-        "5de2ec86c8aa4442114d194b", 	
-        "5de2ec86c8aa4442114d1950", 	
-        "5de2ec86c8aa4442114d1955", 	
-        "5de2ec86c8aa4442114d195a", 	
-        "5de2ec86c8aa4442114d1952", 	
-        "5de2ec86c8aa4442114d1957", 	
-        "5de2ec86c8aa4442114d195c", 	
-        "5de2ec86c8aa4442114d194e", 	
-        "5de2ec86c8aa4442114d1953", 	
-        "5de2ec86c8aa4442114d1958", 	
-        "5de2ec86c8aa4442114d195d", 	
-        "5de2ec86c8aa4442114d193d", 	
-        "5de2ec86c8aa4442114d1942", 	
-        "5de2ec86c8aa4442114d1947", 	
-        "5de2ec86c8aa4442114d194c", 	
-        "5de2ec86c8aa4442114d1951", 	
-        "5de2ec86c8aa4442114d1956", 	
-        "5de2ec86c8aa4442114d195b", 	
-        "5de2f155083f6545ffae93eb"
-
-
+    "5e2256856c4efd5b47dd455d"
 ]
 
 
 
 async function makeCarrito(){
-    for(var i = 0; i < 100; i++){
+    for(var i = 0; i < 10; i++){
         var amount = Math.floor((Math.random() * 15) + 1);
-        var randomCliente = clientes_id[Math.floor((Math.random() * clientes_id.length) + 1)];
-        var randomArticulo = articulos_id[Math.floor((Math.random() * articulos_id.length) + 1)];
+        var randomCliente = clientes_id[Math.floor((Math.random() * clientes_id.length) + 0)];
+        var randomArticulo = articulos_id[Math.floor((Math.random() * articulos_id.length) + 0)];
 
         const clienteArticuloNew = new ClienteArticulo({
             clienteID: randomCliente,
@@ -139,7 +116,7 @@ function makeProducts(){
 }
 
 function makeClients(){
-    for (var i = 1 ; i<= 100;i++){
+    for (var i = 1 ; i<= 5;i++){
         const cliente = new Cliente({
             nombre: faker.name.firstName(),
             apellido:faker.name.lastName(),

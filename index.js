@@ -24,8 +24,7 @@ fastify.register(require('fastify-cors'), {
 })
 
 
-const query = require("./controllers/orderController");
-
+const query = require("./tools/seed");
 routes.forEach((route, index) => {
   fastify.route(route)
  })

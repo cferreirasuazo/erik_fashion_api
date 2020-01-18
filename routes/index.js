@@ -20,8 +20,8 @@ const routes = [
         handler:articleControllers.getArticles
     },
     {
-        method:"GET",
-        url:"/api/cliente/:id",
+        method:"POST",
+        url:"/api/login",
         handler:cliente.clienteArticulos
     },
     {
@@ -29,11 +29,6 @@ const routes = [
         url:"/api/register",
         handler:Auth.register
     },
-    {
-        method:"GET",
-        url:"/api/sign",
-        handler:Auth.sign
-    }
 
 
 
