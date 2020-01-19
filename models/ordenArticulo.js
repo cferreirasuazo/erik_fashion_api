@@ -3,17 +3,17 @@ const mongoose = require("mongoose")
 
 const ordenArticuloSchema = new mongoose.Schema({
 
-    ordenId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Orden"
+    ordenId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Orden"
     },
-    articuloId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Articulo"
+    articulo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Articulo"
     },
-    cantidad:String,
+    cantidad: String,
 
 })
 
 
-module.exports = mongoose.model("ordenArticulo",ordenArticuloSchema)
+module.exports = mongoose.model("ordenArticulo", ordenArticuloSchema)

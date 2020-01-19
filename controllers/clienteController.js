@@ -23,15 +23,15 @@ exports.clienteArticulos = (req, res) => {
             })
 
             var secCliente = parseCliente(cliente)
-        
+
             var passwordValid = bcrypt.compareSync(req.body.password, cliente.password)
             //If password is valid, returns all the information including client and articles
             if (passwordValid) {
                 const articulos = await ClienteArticulo.find({
                         clienteID: cliente._id
                     })
-                    .select("articuloID cantidad")
-                    .populate("articuloID", "nombre descripcion precio")
+                    .select("articulo cantidad")
+                    .populate("articulo", "nombre descripcion precio")
                     .catch((err) => (console.log("ERROR")))
                 res.status(200).send({
                     cliente: secCliente,
@@ -47,8 +47,6 @@ exports.clienteArticulos = (req, res) => {
         res.status(500).send(err)
     }
 }
-
-
 
 exports.getClientes = async req => {
     try {

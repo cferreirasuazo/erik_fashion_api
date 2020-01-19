@@ -76,7 +76,7 @@ async function makeCarrito(){
 
         const clienteArticuloNew = new ClienteArticulo({
             clienteID: randomCliente,
-            articuloID: randomArticulo,
+            articulo: randomArticulo,
             cantidad: amount
         })
 
