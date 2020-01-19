@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 
 const marcaSchema = new mongoose.Schema({
-    nombre:String
+    nombre: String
 })
 
 
-module.exports = mongoose.model("Marca",marcaSchema)
+module.exports = mongoose.model("Marca", marcaSchema)

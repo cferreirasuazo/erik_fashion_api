@@ -23,7 +23,7 @@ exports.clienteArticulos = (req, res) => {
             })
 
             var secCliente = parseCliente(cliente)
-        
+
             var passwordValid = bcrypt.compareSync(req.body.password, cliente.password)
             //If password is valid, returns all the information including client and articles
             if (passwordValid) {
@@ -47,8 +47,6 @@ exports.clienteArticulos = (req, res) => {
         res.status(500).send(err)
     }
 }
-
-
 
 exports.getClientes = async req => {
     try {

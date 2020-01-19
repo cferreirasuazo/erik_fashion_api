@@ -1,12 +1,13 @@
 // Require the framework and instantiate it
+
+
+//Defines .ENV
 require('dotenv').config()
 const fastify = require('fastify')({
   logger: true
 })
 
 const mongoose = require('mongoose')
-const boom = require('boom')
-const cors = require("cors")
 
 
 const url = `mongodb://${process.env.MONGOUSER}:${process.env.MONGOPASSWD}@ds251158.mlab.com:51158/erikfashion`

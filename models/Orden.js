@@ -1,20 +1,20 @@
 const mongoose = require("mongoose")
 
 const ordenSchema = new mongoose.Schema({
-    fechaCreada:Date,
-    fechaEntrega:Date,
-    estadoOrden:Number,
-    clienteId:{
+    fechaCreada: Date,
+    fechaEntrega: Date,
+    estadoOrden: Number,
+    clienteId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"Cliente"
+        ref: "Cliente"
     },
-    total:Number,
+    total: Number,
     direccion: String,
     articulos: {
-        type:Array,
-        default:[]
+        type: Array,
+        default: []
     }
 })
 
 
-module.exports = mongoose.model("Orden",ordenSchema)
+module.exports = mongoose.model("Orden", ordenSchema)
