@@ -2,6 +2,8 @@ const controllers = require("../controllers")
 const articleControllers = require("../controllers/articleController")
 const cliente = require("../controllers/clienteController")
 const Auth = require("../Auth/AuthController")
+const categorias = require("../controllers/categoriasController");
+const article = require("../controllers/articleController");
 
 const routes = [
     {
@@ -29,6 +31,16 @@ const routes = [
         url:"/api/register",
         handler:Auth.register
     },
+    {
+        method:"GET",
+        url:"/api/categorias",
+        handler:categorias.getCategorias
+    },
+    {
+        method:"GET",
+        url:"/api/article/:id",
+        handler:article.getArticleById
+    }
 
 
 
