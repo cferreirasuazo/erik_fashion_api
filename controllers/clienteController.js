@@ -30,8 +30,8 @@ exports.clienteArticulos = (req, res) => {
                 const articulos = await ClienteArticulo.find({
                         clienteID: cliente._id
                     })
-                    .select("articuloID cantidad")
-                    .populate("articuloID", "nombre descripcion precio")
+                    .select("articulo cantidad")
+                    .populate("articulo", "nombre descripcion precio")
                     .catch((err) => (console.log("ERROR")))
                 res.status(200).send({
                     cliente: secCliente,
