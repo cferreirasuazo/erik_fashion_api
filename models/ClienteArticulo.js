@@ -5,11 +5,7 @@ const clienteArticuloSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Cliente"
     },
-<<<<<<< HEAD
-    articuloID: {
-=======
     articulo: {
->>>>>>> clean_code
         type: mongoose.Schema.Types.ObjectId,
         ref: "Articulo"
     },

@@ -12,7 +12,6 @@ exports.getArticles = async req => {
 }
 
 
-
 exports.getArticleById = async (req,res) =>{
     try{
                 
