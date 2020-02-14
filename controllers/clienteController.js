@@ -8,10 +8,11 @@ var jwt = require("jsonwebtoken");
 var parseCliente = require("../utils/parseCliente");
 
 exports.clienteArticulos = (req, res) => {
+   
     try {
 
         Cliente.findOne({
-            correo: req.body.correo
+            correo: req.body.cliente.correo
         }, async (err, cliente) => {
 
             if (err) return res.status(500).send("Task failed Successfully");
@@ -24,7 +25,7 @@ exports.clienteArticulos = (req, res) => {
 
             var secCliente = parseCliente(cliente)
 
-            var passwordValid = bcrypt.compareSync(req.body.password, cliente.password)
+            var passwordValid = bcrypt.compareSync(req.body.cliente.password, cliente.password)
             //If password is valid, returns all the information including client and articles
             if (passwordValid) {
                 const articulos = await ClienteArticulo.find({
