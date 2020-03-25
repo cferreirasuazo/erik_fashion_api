@@ -58,6 +58,8 @@ exports.getClientes = async req => {
         throw boom.boomify(err)
     }
 }
+
+
 exports.addCliente = async req => {
     try {
         const cliente = new Cliente(req.body)

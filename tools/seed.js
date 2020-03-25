@@ -63,7 +63,8 @@ var articulos_id = [
 ]
 
 var clientes_id = [
-    "5e2256856c4efd5b47dd455d"
+    "5e2256856c4efd5b47dd455d",
+    "5e2393857849821f9a49fb1e"
 ]
 
 

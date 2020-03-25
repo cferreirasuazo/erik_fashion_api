@@ -5,8 +5,11 @@ var Cliente = require("../models/Cliente");
 
 exports.register = async (req, res) => {
 
-
-    //Creates an encrypted password
+    //Check if email exist 
+    
+    var emailExist = await Cliente.findOne({correo: req.body.correo}) ? true : false
+    if(!emailExist){
+            //Creates an encrypted password
     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
     var newCliente = new Cliente({
         nombre: req.body.nombre,
@@ -32,12 +35,19 @@ exports.register = async (req, res) => {
                 auth: true,
                 token: token
             })
+
+            console.log(cliente)
         })
 
         return success
     } catch (err) {
         throw new Error(err.message)
+    }        
+    }else{
+        res.code(200).send(`${emailExist}  exist  `)
     }
+
+
 
 }
 
