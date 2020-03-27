@@ -11,6 +11,7 @@ exports.getArticles = async req => {
     }
 }
 
+<<<<<<< Updated upstream
 
 
 exports.getArticleById = async (req,res) =>{
@@ -27,3 +28,5 @@ exports.getArticleById = async (req,res) =>{
         throw new Error(err.message)
     }
 }
+=======
+>>>>>>> Stashed changes
