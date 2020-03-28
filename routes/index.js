@@ -32,6 +32,11 @@ const routes = [
         handler:Auth.register
     },
     {
+        method:"POST",
+        url:"/api/cliente-update",
+        handler:cliente.updateCliente
+    },
+    {
         method:"GET",
         url:"/api/categorias",
         handler:categorias.getCategorias

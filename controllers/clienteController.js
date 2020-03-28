@@ -49,6 +49,30 @@ exports.clienteArticulos = (req, res) => {
     }
 }
 
+
+exports.updateCliente = async (req,res) => {
+    console.log(req)
+    try{
+            Cliente.findOneAndUpdate({"correo":req.body.correo},req.body,{new:true},(err,cliente)=>{
+                    if(cliente){
+                        res.code(200).send({
+                            status:"OK",
+                            cliente:cliente
+                        })
+                    }else{
+                        return res.code(404).send({
+                            status:404,
+                            message:"client-not-found"
+                        })
+                    }
+            })
+    }catch(err){
+        console.log(err)
+    }
+}
+
+
+
 exports.getClientes = async req => {
     try {
         const clientes = await Cliente.find()
@@ -60,15 +84,6 @@ exports.getClientes = async req => {
 }
 
 
-exports.addCliente = async req => {
-    try {
-        const cliente = new Cliente(req.body)
-        const newCliente = await cliente.save()
-        return newCliente
-    } catch (err) {
-        throw boom.boomify(err)
-    }
-}
 
 exports.getArticulos = async (req) => {
     try {

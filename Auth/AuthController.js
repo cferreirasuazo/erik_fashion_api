@@ -2,6 +2,7 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var config = require('../config');
 var Cliente = require("../models/Cliente");
+var parseCliente = require("../utils/parseCliente");
 
 exports.register = async (req, res) => {
 
@@ -33,7 +34,8 @@ exports.register = async (req, res) => {
 
             res.code(200).send({
                 auth: true,
-                token: token
+                token: token,
+                cliente:parseCliente(cliente)
             })
 
             console.log(cliente)
@@ -46,8 +48,6 @@ exports.register = async (req, res) => {
     }else{
         res.code(200).send(`${emailExist}  exist  `)
     }
-
-
 
 }
 
