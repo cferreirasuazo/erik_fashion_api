@@ -5,25 +5,25 @@ var Cliente = require("../models/Cliente");
 var parseCliente = require("../utils/parseCliente");
 
 exports.register = async (req, res) => {
-
-    //Check if email exist 
-    
-    var emailExist = await Cliente.findOne({correo: req.body.correo}) ? true : false
+ 
+    console.log(req)
+    var emailExist = await Cliente.findOne({correo: req.body.cliente.correo}) ? true : false
     if(!emailExist){
             //Creates an encrypted password
-    var hashedPassword = bcrypt.hashSync(req.body.password, 8);
+    var hashedPassword = bcrypt.hashSync(req.body.cliente.password, 8);
     var newCliente = new Cliente({
-        nombre: req.body.nombre,
-        apellido: req.body.apellido,
-        usuario: req.body.usuario,
-        correo: req.body.correo,
+        nombre: req.body.cliente.nombre,
+        apellido: req.body.cliente.apellido,
+        usuario: req.body.cliente.usuario,
+        correo: req.body.cliente.correo,
         password: hashedPassword
     })
 
     try {
         var success = await newCliente.save((err, cliente) => {
+            console.log(cliente) 
             //Sends an status of error if something bad happens
-            if (err) return res.code(500).send("There was a problem regestrying the cliente")
+            if (err) return res.code(500).send("There was a problem registrying the cliente")
             //Creates a JWT, It allows the user to make request to the API
             var token = jwt.sign({
                 id: cliente._id
@@ -32,13 +32,12 @@ exports.register = async (req, res) => {
                 expiresIn: 86400
             })
 
-            res.code(200).send({
+            res.code(201).send({
                 auth: true,
                 token: token,
                 cliente:parseCliente(cliente)
             })
 
-            console.log(cliente)
         })
 
         return success
@@ -46,7 +45,11 @@ exports.register = async (req, res) => {
         throw new Error(err.message)
     }        
     }else{
-        res.code(200).send(`${emailExist}  exist  `)
+        res.code(200).send({
+            code: 200,
+            message:"client-already-exist",
+            data:null
+        })
     }
 
 }
