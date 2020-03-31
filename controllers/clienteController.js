@@ -8,13 +8,13 @@ var jwt = require("jsonwebtoken");
 var parseCliente = require("../utils/parseCliente");
 
 exports.clienteArticulos = (req, res) => {
-   
+    console.log(req.body.cliente.correo)
     try {
 
         Cliente.findOne({
             correo: req.body.cliente.correo
         }, async (err, cliente) => {
-
+            console.log(cliente)
             if (err) return res.status(500).send("Task failed Successfully");
             if (!cliente) return res.status(404).send("Cliente no esta registrado");
             var token = jwt.sign({
@@ -34,6 +34,7 @@ exports.clienteArticulos = (req, res) => {
                     .select("articulo cantidad")
                     .populate("articulo", "nombre descripcion precio")
                     .catch((err) => (console.log("ERROR")))
+                console.log(articulos)
                 res.status(200).send({
                     cliente: secCliente,
                     articulos: articulos
@@ -53,11 +54,11 @@ exports.clienteArticulos = (req, res) => {
 exports.updateCliente = async (req,res) => {
     console.log(req)
     try{
-            Cliente.findOneAndUpdate({"correo":req.body.correo},req.body,{new:true},(err,cliente)=>{
+            Cliente.findOneAndUpdate({"correo":req.body.request.correo},req.body.request,{new:true},(err,cliente)=>{
                     if(cliente){
                         res.code(200).send({
                             status:"OK",
-                            cliente:cliente
+                            update: parseCliente(cliente)
                         })
                     }else{
                         return res.code(404).send({
@@ -81,6 +82,55 @@ exports.getClientes = async req => {
     } catch (err) {
         throw boom.boomify(err)
     }
+}
+
+exports.addToClienteArticulo = async (req,res) => {
+        var {cantidad,articuloId} = req.body.request;
+        var {correo} = req.body.request;
+        console.log(req.body.request)
+        
+        try{
+            Cliente.findOne({correo:correo},async (err,cliente) =>{
+                var {_id} = cliente
+                var request = new ClienteArticulo({
+                    clienteID:_id,
+                    articulo:articuloId,
+                    cantidad:cantidad
+                })
+                
+                try{ 
+                    var success = await request.save();
+                    console.log(success)
+                    var populate = await ClienteArticulo.findById(success._id)
+                    .select("articulo cantidad")
+                    .populate("articulo", "nombre descripcion precio")
+                  //  console.log(articulo)
+                    if(populate){
+                        res.code(200).send(populate)
+                    }
+                }catch(err){
+                    res.code(500).send("error saving article")
+                }
+
+
+            })
+
+        
+        //    if(success){
+        //     res.code(200).send({
+        //         status:200,
+        //         message:"SUCCESSFUL",
+        //         data:success
+        //     })
+        //    }
+
+
+        }catch(err){
+            res.code(500).send({
+                status:500,
+                message:"error during request"
+            })
+        }
 }
 
 

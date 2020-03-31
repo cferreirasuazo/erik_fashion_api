@@ -62,9 +62,9 @@ var articulos_id = [
     "5de2f8c3556ff1535aa07490"
 ]
 
-var clientes_id = [
-    "5e2256856c4efd5b47dd455d",
-    "5e2393857849821f9a49fb1e"
+var clientes_id = 
+[
+	"5e7f8317267e7120fbd3a8d9"
 ]
 
 

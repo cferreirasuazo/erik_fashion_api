@@ -8,15 +8,15 @@ exports.register = async (req, res) => {
 
     //Check if email exist 
     
-    var emailExist = await Cliente.findOne({correo: req.body.correo}) ? true : false
+    var emailExist = await Cliente.findOne({correo: req.body.cliente.correo}) ? true : false
     if(!emailExist){
             //Creates an encrypted password
-    var hashedPassword = bcrypt.hashSync(req.body.password, 8);
+    var hashedPassword = bcrypt.hashSync(req.body.cliente.password, 8);
     var newCliente = new Cliente({
-        nombre: req.body.nombre,
-        apellido: req.body.apellido,
-        usuario: req.body.usuario,
-        correo: req.body.correo,
+        nombre: req.body.cliente.nombre,
+        apellido: req.body.cliente.apellido,
+        usuario: req.body.cliente.usuario,
+        correo: req.body.cliente.correo,
         password: hashedPassword
     })
 
@@ -35,7 +35,7 @@ exports.register = async (req, res) => {
             res.code(200).send({
                 auth: true,
                 token: token,
-                cliente:parseCliente(cliente)
+                info:parseCliente(cliente)
             })
 
             console.log(cliente)
