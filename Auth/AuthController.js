@@ -5,8 +5,9 @@ var Cliente = require("../models/Cliente");
 var parseCliente = require("../utils/parseCliente");
 
 exports.register = async (req, res) => {
- 
-    console.log(req)
+
+    //Check if email exist 
+    
     var emailExist = await Cliente.findOne({correo: req.body.cliente.correo}) ? true : false
     if(!emailExist){
             //Creates an encrypted password
@@ -35,7 +36,7 @@ exports.register = async (req, res) => {
             res.code(201).send({
                 auth: true,
                 token: token,
-                cliente:parseCliente(cliente)
+                info:parseCliente(cliente)
             })
 
         })

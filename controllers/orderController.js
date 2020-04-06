@@ -76,11 +76,7 @@ exports.addOrdenArticulo = async (orden) => {
         })
         var articulos = clienteArticulos.map((articulo) => {
             var {
-<<<<<<< HEAD
                 articuloID,
-=======
-                articulo,
->>>>>>> clean_code
                 cantidad,
             } = articulo
             return {
@@ -108,11 +104,7 @@ async function addOrdenArticulo(articulos) {
             try {
                 var newOrdenArticulo = new OrdenArticulo({
                     ordenId: articulos.orden_id,
-<<<<<<< HEAD
                     articuloId: articulo.articuloID
-=======
-                    articulo: articulo.articulo
->>>>>>> clean_code
                 })
                 let suc = await newOrdenArticulo.save()
                 console.log(suc)

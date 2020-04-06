@@ -8,7 +8,7 @@ module.exports = (cliente) => {
         apellido: "",
         usuario: "",
         correo: "",
-        direccion:""
+        direccion: ""
     }
 
     for(var key in secCliente){

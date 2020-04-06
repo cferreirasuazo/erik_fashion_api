@@ -7,11 +7,7 @@ const ordenArticuloSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Orden"
     },
-<<<<<<< HEAD
     articuloId: {
-=======
-    articulo: {
->>>>>>> clean_code
         type: mongoose.Schema.Types.ObjectId,
         ref: "Articulo"
     },

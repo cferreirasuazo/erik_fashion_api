@@ -37,7 +37,6 @@ fastify.get('/', async (request, reply) => {
 var seed = require("./tools/seed");
 
 
-
 // Run the server!
 const start = async () => {
   try {

@@ -42,6 +42,11 @@ const routes = [
         handler:categorias.getCategorias
     },
     {
+        method:"POST",
+        url:"/api/add-to-cart",
+        handler:cliente.addToClienteArticulo
+    },
+    {
         method:"GET",
         url:"/api/article/:id",
         handler:article.getArticleById
