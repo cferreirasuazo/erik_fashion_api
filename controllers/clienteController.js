@@ -1,6 +1,6 @@
 const boom = require('boom')
 const Cliente = require("../models/Cliente")
-const Order = require("../models/Orden")
+const Order = require("../models/Order")
 const ClienteArticulo = require("../models/ClienteArticulo")
 var bcrypt = require('bcryptjs');
 var config = require("../config");

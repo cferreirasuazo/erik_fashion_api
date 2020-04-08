@@ -23,6 +23,11 @@ const routes = [
     },
     {
         method:"POST",
+        url:"/api/article/delete",
+        handler:articleControllers.deleteArticle
+    },
+    {
+        method:"POST",
         url:"/api/login",
         handler:cliente.clienteArticulos
     },

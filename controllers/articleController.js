@@ -6,11 +6,17 @@ const ClienteArticulo = require("../models/ClienteArticulo");
 
 exports.deleteArticle = async (req,res) => {
     try{
-        var article = await ClienteArticulo.find({articulo: req.body.id});
-        res.code(200).send(article);
-        
+        console.log("BODY",req.body)
+        var article = await ClienteArticulo.findOneAndRemove({_id: req.body.id});
+        console.log("Article",article)
+        if(article){
+            res.code(200).send(article._id)
+        }else{
+            res.code(404).send("NOT_FOUND")
+        }
+    
     }catch(err){
-        res.code(500).send(err)
+        res.code(404).send("NOT FOUND")
     }
 }
 

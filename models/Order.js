@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const ordenSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema({
     fechaCreada: Date,
     fechaEntrega: Date,
     estadoOrden: Number,
@@ -16,5 +16,4 @@ const ordenSchema = new mongoose.Schema({
     }
 })
 
-
-module.exports = mongoose.model("Orden", ordenSchema)
+module.exports = mongoose.model("Order", orderSchema)

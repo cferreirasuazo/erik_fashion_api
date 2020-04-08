@@ -34,7 +34,6 @@ exports.addOrden = async (req) => {
 }
 
 exports.deleteOrden = async (req) => {
-    // var {ordenId} = req.params;
     var ordenId = req
 
     try {
@@ -64,78 +63,8 @@ exports.getOrders = async (req) => {
     }
 }
 
-exports.addOrdenArticulo = async (orden) => {
-    try {
-
-        var {
-            _id,
-            clienteId
-        } = orden
-        var clienteArticulos = await ClienteArticulo.find({
-            clienteID: clienteId
-        })
-        var articulos = clienteArticulos.map((articulo) => {
-            var {
-                articuloID,
-                cantidad,
-            } = articulo
-            return {
-                articulo: articulo,
-                cantidad: cantidad
-            }
-        })
-
-        return {
-            orden_id: _id,
-            articulos: articulos
-        }
-
-    } catch (err) {
-        console.warn("ERR ON addOA")
-        throw new Error(err.message)
-    }
-
-}
-
-async function addOrdenArticulo(articulos) {
-    try {
-        articulos.articulos.forEach(async (articulo) => {
-
-            try {
-                var newOrdenArticulo = new OrdenArticulo({
-                    ordenId: articulos.orden_id,
-                    articuloId: articulo.articuloID
-                })
-                let suc = await newOrdenArticulo.save()
-                console.log(suc)
-            } catch (err) {
-                throw new Error(err.message)
-            }
-        })
-
-        return "SUCCESS"
-    } catch (err) {
-        throw new Error(err.message)
-    }
-}
 
 
-
-
-exports.generateOrder = async (req,res) => {
-    try {
-        var order = await this.getOrden(req) //.catch((err)=>(console.log(err)))
-        var stuff = await this.addOrdenArticulo(order)
-        var stuff2 = await addOrdenArticulo(stuff)
-
-        return stuff2
-
-    } catch (err) {
-        console.warn("ERR QUERY")
-        throw new Error(err.message)
-    }
-
-}
 
 
 exports.cancelarOrden = async (req) => {
