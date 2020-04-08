@@ -1,4 +1,6 @@
 // Require the framework and instantiate it
+const orderController = require("./controllers/orderController")
+
 
 
 //Defines .ENV
@@ -17,7 +19,6 @@ mongoose.connect(url,{ useNewUrlParser: true,useUnifiedTopology: true })
  .catch(err => console.log(err))
 mongoose.set('useFindAndModify', false);
 const routes = require("./routes/index")
-var seed = require("./tools/seed")
 fastify.register(require('fastify-cors'), {
   origin:"*",
   allowedHeaders: ['Origin', 'X-Requested-With', 'Accept', 'Content-Type', 'Authorization'],
@@ -25,7 +26,12 @@ fastify.register(require('fastify-cors'), {
 })
 
 
-const query = require("./tools/seed");
+req = {
+  correo:"hansolo@mail.com",
+  address: "Lorem ipsum 12345678910"
+}
+
+
 routes.forEach((route, index) => {
   fastify.route(route)
  })
@@ -33,9 +39,6 @@ routes.forEach((route, index) => {
 fastify.get('/', async (request, reply) => {
   return { hello: 'world' }
 })
-
-var seed = require("./tools/seed");
-
 
 // Run the server!
 const start = async () => {

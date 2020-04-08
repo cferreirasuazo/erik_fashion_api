@@ -1,16 +1,15 @@
 const mongoose = require("mongoose")
 
 const orderSchema = new mongoose.Schema({
-    fechaCreada: Date,
-    fechaEntrega: Date,
-    estadoOrden: Number,
-    clienteId: {
+    createdDate: Date,
+    deliveryDate: Date,
+    orderStatus: Number,
+    clientId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Cliente"
     },
-    total: Number,
-    direccion: String,
-    articulos: {
+    address: String,
+    articles: {
         type: Array,
         default: []
     }

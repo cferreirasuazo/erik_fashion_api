@@ -4,6 +4,7 @@ const Marca = require("../models/Marca");
 const Cliente = require("../models/Cliente");
 const Categoria = require("../models/Categoria");
 const ClienteArticulo = require("../models/ClienteArticulo");
+const Order = require("../models/Order")
 
 const arrCategorias = [faker.commerce.department(),faker.commerce.department(),faker.commerce.department(),faker.commerce.department(),faker.commerce.department()] 
 
@@ -164,9 +165,36 @@ function makeSeed(){
 }
 
 
+var mockOrder = async (req) => (
+    new Promise(async (success,reject)=>{
+      var clientFound = await Cliente.find({correo:req})
+      console.log(clientFound)
+      var clienteID = clientFound[0]._id
+      console.log(clienteID)
+      var  date  = new Date()
+      var status = 200
+      var newOrder = new Order({
+            createdDate:"",
+            deliveryDate: "",
+            orderStatus: 200,
+            clientId: clienteID,
+            total:200,
+            address: "lorem ipsum",
+            articles: [{"name":"bob"},
+                       {"name":"Rosy"},
+                                       ]
+      })
+
+      try{
+            var isCreated = newOrder.save()
+            success(isCreated)
+      }catch(err){
+          console.log(err)
+      }
+    })
+)
 
 
 
-
-module.exports = makeCarrito
+module.exports = mockOrder
 

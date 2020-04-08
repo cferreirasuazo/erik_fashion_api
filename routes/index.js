@@ -4,6 +4,7 @@ const cliente = require("../controllers/clienteController")
 const Auth = require("../Auth/AuthController")
 const categorias = require("../controllers/categoriasController");
 const article = require("../controllers/articleController");
+const orderController = require("../controllers/orderController")
 
 const routes = [
     {
@@ -55,6 +56,11 @@ const routes = [
         method:"GET",
         url:"/api/article/:id",
         handler:article.getArticleById
+    },
+    {
+        method: "POST",
+        url:"/api/order/add",
+        handler: orderController.addOrden
     }
 
 

@@ -1,53 +1,86 @@
 const Cliente = require("../models/Cliente")
-const Order = require("../models/Orden")
+const Order = require("../models/Order")
 const ClienteArticulo = require("../models/ClienteArticulo");
 const boom = require("boom")
 const OrdenArticulo = require("../models/ordenArticulo");
+const asyncHandler = require("../utils/asyncHandler")
 
-const ordenEstados = Object.freeze({
-    CREADA: 0,
-    LISTA: 1,
-    ENVIADA: 2,
-    ENTREGADA: 3,
-    DEVOLVIDA: 4,
-    CANCELADA: 5
+
+//Order status code
+const orderStatus = Object.freeze({
+    CREATED: 0,
+    READY: 1,
+    SENT: 2,
+    DELIVERED: 3,
+    RETURNED: 4,
+    CANCELLED: 5
 })
 
 
-exports.addOrden = async (req) => {
-    try {
+exports.addOrden = async (req,res) => {
+    console.log(req.body.correo)
+    try{
+        //Catch results of async operation of getting client by email
+        var [client,errClient] = await asyncHandler(Cliente.findOne({correo:req.body.correo}).select("_id"))
+        //Returns message that client doesn't exist
+        if (!client) throw new Error("404_CLIENT_NOT_FOUND")
+        //returns message that something wrong happened
+        if (errClient) throw new Error(errClient)
 
-        var newOrden = new Order({
-            fechaCreada: new Date(),
-            fechaEntrega: req.entrega,
-            estadoOrden: ordenEstados.CREADA,
-            clienteId: req.id_cliente,
-            direccion: req.direccion,
-        })
-        var saved = await newOrden.save()
-        console.log(saved)
+        //Catch results of async operation of getting articles by client
+        var [clienteArticulos, errClienteArticulos] = await asyncHandler(ClienteArticulo.find({clienteID:client._id}).select("cantidad articulo"))
 
-
-    } catch (err) {
-        throw new Error(err.message)
+        if(errClienteArticulos) throw new Error("404_ARTICLES_NOT_FOUND")
+        if(clienteArticulos.length > 0){
+            var order = {
+                createDate: new Date(),
+                deliveryDate: new Date(),
+                orderStatus: orderStatus.CREATED,
+                clientId: client._id,
+                articles: clienteArticulos
+            }    
+            //Creates a new order
+            var newOrder = new Order(order)
+            var success = await newOrder.save()
+            if(success){
+                
+                //Executes async delete operations for deleting articles by client        
+                Promise.all(clienteArticulos.map(async (element)=>{
+                    console.log(element)
+                    var success = await ClienteArticulo.findByIdAndDelete(element)
+                    if(success){
+                        console.log("SUCCESS_DELETE")
+                    }
+                })).catch((err)=>{
+                    throw new Error(err)
+                })
+                
+                //After it creates the order, returns a message of success
+                res.code(200).send({
+                    status:200,
+                    message:"order_created",
+                    success:true
+                })
+            
+            }else{
+                //If not, returns that failed
+                res.code(500).send({
+                    status:400,
+                    message:"successfuly_failed",
+                    success:false
+                })
+            }
+            
+        }else{
+            //Returns message that client hasn't article
+            throw new Error("Client Doesn't have articles")
+        }
+    }catch(err){
+        //Catches any error that ocurres
+        res.code(500).send(err)
     }
 }
 
-exports.deleteOrden = async (req) => {
-    var ordenId = req
-
-    try {
-        var status = await Order.deleteOne({
-            _id: ordenId
-        })
-        console.log(status)
-    } catch (err) {
-        console.log(err.message)
-    }
-
-
-
-}
 
 exports.getOrders = async (req) => {
     try {
@@ -62,10 +95,6 @@ exports.getOrders = async (req) => {
         throw new Error(err.message)
     }
 }
-
-
-
-
 
 exports.cancelarOrden = async (req) => {
     try {
