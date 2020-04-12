@@ -5,7 +5,6 @@ const boom = require("boom")
 const OrdenArticulo = require("../models/ordenArticulo");
 const asyncHandler = require("../utils/asyncHandler")
 
-
 //Order status code
 const orderStatus = Object.freeze({
     CREATED: 0,
@@ -16,12 +15,11 @@ const orderStatus = Object.freeze({
     CANCELLED: 5
 })
 
-
 exports.addOrden = async (req,res) => {
     console.log(req.body.correo)
     try{
         //Catch results of async operation of getting client by email
-        var [client,errClient] = await asyncHandler(Cliente.findOne({correo:req.body.correo}).select("_id"))
+        var [client,errClient] = await asyncHandler(Cliente.findOne({correo:req.body.email}).select("_id"))
         //Returns message that client doesn't exist
         if (!client) throw new Error("404_CLIENT_NOT_FOUND")
         //returns message that something wrong happened

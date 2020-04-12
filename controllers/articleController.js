@@ -30,6 +30,19 @@ exports.getArticles = async req => {
     }
 }
 
+exports.getSingleArticle = async({params},res) => {
+    try{
+        var article = await Articulo.findById(params.id)
+        if(!article) res.code(404).send("Not found")
+        res.code(200).send(article)
+    }catch(err){
+        res.code(500).send(err)
+
+    }
+}
+
+
+
 exports.getArticleById = async (req,res) =>{
     try{
                 

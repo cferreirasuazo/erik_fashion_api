@@ -54,6 +54,11 @@ const routes = [
     },
     {
         method:"GET",
+        url:"/api/article/single/:id",
+        handler:article.getSingleArticle
+    },
+    {
+        method:"GET",
         url:"/api/article/:id",
         handler:article.getArticleById
     },

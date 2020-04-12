@@ -1,6 +1,6 @@
-const boom = require("boom")
-const Articulo = require("../models/Articulo");
-const Categoria = require("../models/Categoria");
+// const boom = require("boom")
+// const Articulo = require("../models/Articulo");
+// const Categoria = require("../models/Categoria");
 
 exports.getArticles = async req => {
     try {
@@ -26,3 +26,4 @@ exports.getArticleById = async (req,res) =>{
         throw new Error(err.message)
     }
 }
+
