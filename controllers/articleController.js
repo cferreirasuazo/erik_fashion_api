@@ -2,7 +2,7 @@ const boom = require("boom")
 const Articulo = require("../models/Articulo");
 const Categoria = require("../models/Categoria");
 const ClienteArticulo = require("../models/ClienteArticulo");
-
+const asyncHandler = require("../utils/asyncHandler");
 
 exports.deleteArticle = async (req,res) => {
     try{
@@ -32,8 +32,8 @@ exports.getArticles = async req => {
 
 exports.getSingleArticle = async({params},res) => {
     try{
-        var article = await Articulo.findById(params.id)
-        if(!article) res.code(404).send("Not found")
+        var [article, errArticle] = await asyncHandler(Articulo.findById(params.id))
+        if (errArticle) res.code(500).send("article_not_Found")
         res.code(200).send(article)
     }catch(err){
         res.code(500).send(err)
@@ -45,14 +45,13 @@ exports.getSingleArticle = async({params},res) => {
 
 exports.getArticleById = async (req,res) =>{
     try{
-                
+            
         var categoria = req.params.id;
         var categorias = await Categoria.findOne({nombre:categoria})
         var articulosArr = await Articulo.find({categoria:categorias._id}).populate("categoria marca")
         res.code(200).send(articulosArr);
         return articulosArr
         
-
     }catch(err){
         throw new Error(err.message)
     }

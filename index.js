@@ -9,9 +9,6 @@ const fastify = require('fastify')({
   logger: true
 })
 
-
-
-
 const url = `mongodb://${process.env.MONGOUSER}:${process.env.MONGOPASSWD}@ds251158.mlab.com:51158/erikfashion`
 
 mongoose.connect(url,{ useNewUrlParser: true,useUnifiedTopology: true })
